@@ -57,7 +57,8 @@ def t_newline(t):
 t_ignore = ' \t'
 
 def t_palabraReservada(t):
-    r'(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
+    #10 palabras, máximo 15, agregue 4 palabras mas, esta abierto a modificación
+    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
     return t
 
 def t_identificador(t):
@@ -68,7 +69,7 @@ def t_cadena(t):
     r'\".*\"'
     return t
 
-#comentarios del lenguaje son ignorados
+#comentarios del lenguaje son ignorados/omitidos
 
 def t_comentario(t):
     r'\/\/.*'
