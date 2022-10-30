@@ -6,14 +6,14 @@ import ply.lex as lex
 
 # List of token names.   This is always required
 tokens = (
-   'NUMBER',
-   'PLUS',
-   'MINUS',
-   'TIMES',
-   'DIVIDE',
-   'LPAREN',
-   'RPAREN',
-   'keyword',
+   'digito',
+   'mas',
+   'menos',
+   'por',
+   'entre',
+   'parenIzq',
+   'parenDer',
+   'palaraClave',
    'identificador',
    'inicioBloque',
    'finBloque',
@@ -26,12 +26,12 @@ tokens = (
 )
 
 # Regular expression rules for simple tokens
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
+t_mas    = r'\+'
+t_menos   = r'-'
+t_por   = r'\*'
+t_entre  = r'/'
+t_parenIzq  = r'\('
+t_parenDer  = r'\)'
 t_inicioBloque = r'\{'
 t_finBloque = r'\}'
 t_finInstruccion = r'\;'
@@ -39,7 +39,7 @@ t_asignacion = r'\='
 t_coma= r'\,'
 
 # A regular expression rule with some action code
-def t_NUMBER(t):
+def t_digito(t):
     r'\d+'
     t.value = int(t.value)    
     return t
@@ -52,7 +52,7 @@ def t_newline(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore  = ' \t'
 
-def t_keyword(t):
+def t_palaraClave(t):
     r'(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
     return t
 
