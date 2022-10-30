@@ -18,28 +18,45 @@ class Node:
 
 
 # A function to do inorder tree traversal
-def printInorder(root):
+def printPreorder(root):
 
 	if root:
-
-		# First recur on left child
-		printInorder(root.left)
-
 		# then print the data of node
 		print(root.val),
 
-		# now recur on right child
-		printInorder(root.right)
+		# First recur on left child
+		printPreorder(root.left)
 
+		# now recur on right child
+		printPreorder(root.right)
+
+def insert(root, key):
+	if root is None:
+		return Node(key)
+	else:
+		if root.val.name == key:
+			return root
+		elif root.val.name < key:
+			root.right = insert(root.right, key)
+		else:
+			root.left = insert(root.left, key)
+	return root
 
 # Driver code
 if __name__ == "__main__":
-	root = Node(1)
-	root.left = Node(2)
-	root.right = Node(3)
-	root.left.left = Node(4)
-	root.left.right = Node(5)
+	#root = Node(1)
+	#root.left = Node(2)
+	#root.right = Node(3)
+	#root.left.left = Node(4)
+	#root.left.right = Node(5)
+	r = Node(tokenInfo("first","tipo1","0"))
+	r = insert(r, tokenInfo("b","tipo2","0"))
+	r = insert(r, tokenInfo("anho","tipo3","0"))
+	#r = insert(r, 40)
+	#r = insert(r, 70)
+	#r = insert(r, 60)
+	#r = insert(r, 80)
 
 	# Function call
 	print("\nInorder traversal of binary tree is")
-	printInorder(root)
+	printPreorder(r)

@@ -82,15 +82,14 @@ def t_error(t):
 lexer = lex.lex()
 
 def miLexer():
-    f = open('fuente.c','r')
+    f = open('fuente.cpp','r')
     #lexer.input('3+4*_a23+-20*2')
     lexer.input(f.read())
     while True:
         tok=lexer.token()
         if not tok:
             break
-        #print(tok)
-        print(tok.type, tok.value, tok.lineno, tok.lexpos)
+        print("[Tipo:",tok.type,"]","[Valor:", tok.value,"]", "[Número de Línea:", tok.lineno,"]", "[Posición:", tok.lexpos,"]")
         # .lineno is Current line number
         # .lexpos is Current position in input text
         
