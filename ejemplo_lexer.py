@@ -15,7 +15,7 @@ tokens = (
     'entre',
     'parenIzq',
     'parenDer',
-    'palaraClave',
+    'palabraReservada',
     'identificador',
     'inicioBloque',
     'finBloque',
@@ -56,7 +56,7 @@ def t_newline(t):
 # A string containing ignored characters (spaces and tabs)
 t_ignore = ' \t'
 
-def t_palaraClave(t):
+def t_palabraReservada(t):
     r'(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
     return t
 
