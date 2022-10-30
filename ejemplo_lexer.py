@@ -83,10 +83,8 @@ def t_error(t):
     t.lexer.skip(1)
     return t
 
-
 # Build the lexer
 lexer = lex.lex()
-
 
 def miLexer():
     f = open('fuente.cpp', 'r')
@@ -97,6 +95,8 @@ def miLexer():
         if not tok:
             break
         print("[Tipo:", tok.type, "]", "[Valor:", tok.value, "]","[Número de Línea:", tok.lineno, "]", "[Posición:", tok.lexpos, "]")
+        # aqui se deberia ir almacenando en cada paso del while
+        # un token en un BST, el cual imprimiremos al final.
         # .lineno is Current line number
         # .lexpos is Current position in input text
 
