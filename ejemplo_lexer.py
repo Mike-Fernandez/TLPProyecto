@@ -5,6 +5,7 @@
 #El analizador léxico es la primera fase de un compilador. Su principal función consiste en leer los caracteres de entrada y elaborar como salida una secuencia de componentes léxicos que utiliza el analizador sintáctico para hacer el análisis.
 
 import ply.lex as lex
+from bstInorder import *
 
 # List of token names.   This is always required
 tokens = (
@@ -93,6 +94,11 @@ lexer = lex.lex()
 
 #ejemplo del lexer en funcionamiento
 def miLexer():
+    #creando un contador
+    contador = 0
+    #declarando un arbol BST
+    #creando nodo root
+    root = None
     f = open('fuente.cpp', 'r')
     # lexer.input('3+4*_a23+-20*2')
     lexer.input(f.read())
@@ -101,12 +107,21 @@ def miLexer():
         if not tok:
             break
         # mostrar la lista de elementos lexicográficos encontrados
-        print("[Tipo:", tok.type, "]", "[Valor:", tok.value, "]","[Número de Línea:", tok.lineno, "]", "[Posición:", tok.lexpos, "]")
+        print("[Tipo:", tok.type, "]", "[Valor:", tok.value, "]","[Número de Línea:", tok.lineno, "]", "[Posición en texto:", tok.lexpos, "]")
         # aqui se deberia ir almacenando en cada paso del while
         # un token en un BST, el cual imprimiremos al final.
         # .lineno is Current line number
         # .lexpos is Current position in input text
+        if root is None:
+            root = Node(tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
+        else:
+            insert(root, tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
+        contador += 1
+    #tabla de simbolos imprimir
+    print("******** Imprimiendo tabla de simbolos ********")
+    printPreorder(root)
 
+print("******** Ejecutando mi lexer ********")
 miLexer()
 
 # TODO tabla de símbolos construida 
