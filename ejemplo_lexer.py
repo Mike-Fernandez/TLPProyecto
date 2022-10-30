@@ -91,5 +91,7 @@ def miLexer():
             break
         #print(tok)
         print(tok.type, tok.value, tok.lineno, tok.lexpos)
+        # .lineno is Current line number
+        # .lexpos is Current position in input text
         
 miLexer()
