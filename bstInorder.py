@@ -44,19 +44,15 @@ def insert(root, tokenInfo):
 
 # Driver code
 if __name__ == "__main__":
-	#root = Node(1)
-	#root.left = Node(2)
-	#root.right = Node(3)
-	#root.left.left = Node(4)
-	#root.left.right = Node(5)
-	#r = Node(tokenInfo("first","tipo1","0"))
+	#creando nodo root
 	root = Node(tokenInfo("first","tipo1","0"))
+	#insertando a root
 	insert(root, tokenInfo("b","tipo2","0"))
 	insert(root, tokenInfo("anho","tipo3","0"))
-	#r = insert(r, 40)
-	#r = insert(r, 70)
-	#r = insert(r, 60)
-	#r = insert(r, 80)
+	insert(root, tokenInfo("companhia","tipo4","0"))
+	insert(root, tokenInfo("m","tipo5","0"))
+	insert(root, tokenInfo("forma","tipo6","0"))
+	insert(root, tokenInfo("x3","tipo7","0"))
 
 	# Function call
 	print("\nInorder traversal of binary tree is")
