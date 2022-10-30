@@ -2,6 +2,8 @@
 # Lexer para C++
 # ------------------------------------------------------------
 
+#El analizador léxico es la primera fase de un compilador. Su principal función consiste en leer los caracteres de entrada y elaborar como salida una secuencia de componentes léxicos que utiliza el analizador sintáctico para hacer el análisis.
+
 import ply.lex as lex
 
 # List of token names.   This is always required
@@ -80,12 +82,15 @@ def t_comentarioBloque(t):
 
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
+    # en el caso que se detecten elementos no pertenecientes
+    # al lenguaje, indicamos un error y omitimos el elemento.
     t.lexer.skip(1)
     return t
 
 # Build the lexer
 lexer = lex.lex()
 
+#ejemplo del lexer en funcionamiento
 def miLexer():
     f = open('fuente.cpp', 'r')
     # lexer.input('3+4*_a23+-20*2')
@@ -94,6 +99,7 @@ def miLexer():
         tok = lexer.token()
         if not tok:
             break
+        # mostrar la lista de elementos lexicográficos encontrados
         print("[Tipo:", tok.type, "]", "[Valor:", tok.value, "]","[Número de Línea:", tok.lineno, "]", "[Posición:", tok.lexpos, "]")
         # aqui se deberia ir almacenando en cada paso del while
         # un token en un BST, el cual imprimiremos al final.
@@ -101,3 +107,5 @@ def miLexer():
         # .lexpos is Current position in input text
 
 miLexer()
+
+# TODO tabla de símbolos construida 
