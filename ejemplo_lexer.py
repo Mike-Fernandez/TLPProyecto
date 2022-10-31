@@ -25,7 +25,12 @@ tokens = (
     'comentario',
     'comentarioBloque',
     'cadena',
-    'coma'
+    'coma',
+    'gt',
+    'lt',
+    'ge',
+    'le',
+    'num'
 )
 
 # Regular expression rules for simple tokens
@@ -40,6 +45,11 @@ t_finBloque = r'\}'
 t_finInstruccion = r'\;'
 t_asignacion = r'\='
 t_coma = r'\,'
+t_gt = r'\>'
+t_lt = r'\<'
+t_ge = r'\>\='
+t_le = r'\<\='
+t_num = r'\#'
 
 # A regular expression rule with some action code
 
@@ -59,7 +69,7 @@ t_ignore = ' \t'
 
 def t_palabraReservada(t):
     #10 palabras, máximo 15, agregue 4 palabras mas, esta abierto a modificación
-    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
+    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)|(include)'
     return t
 
 def t_identificador(t):
@@ -115,13 +125,16 @@ def miLexer():
         if root is None:
             root = Node(tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
         else:
-            insert(root, tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
+            root = insert(root, tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
         contador += 1
     #tabla de simbolos imprimir
     print("******** Imprimiendo tabla de simbolos ********")
-    printPreorder(root)
+    printInorder(root)
+    #Printing info from single node root
+#    print("Printing single node")
+#    leftChild = root.left
+#    printNode(root.left)
 
 print("******** Ejecutando mi lexer ********")
 miLexer()
-
 # TODO tabla de símbolos construida 
