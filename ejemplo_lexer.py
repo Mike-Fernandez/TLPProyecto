@@ -1,13 +1,16 @@
-# ------------------------------------------------------------
-# Lexer para C++
-# ------------------------------------------------------------
+#Analizador Lexico para lenguaje c++
 
-#El analizador léxico es la primera fase de un compilador. Su principal función consiste en leer los caracteres de entrada y elaborar como salida una secuencia de componentes léxicos que utiliza el analizador sintáctico para hacer el análisis.
+# Integrantes
+#   Miguel Enrique Fernández Azucena 00145518
+#   Julio Alfredo Machado Olivo 00039718
+#   Saúl Ernesto Orellana Jiménez 00180718
+#   Nuria Melissa Rivas Canjura 00041517
+#   Miguel Ernesto Rivas Serrano 00087518
 
 import ply.lex as lex
 from bstInorder import *
 
-# List of token names.   This is always required
+# Tokens a utilizar
 tokens = (
     'digito',
     'mas',
@@ -33,7 +36,7 @@ tokens = (
     'num'
 )
 
-# Regular expression rules for simple tokens
+# Tokens descritos en su version de expresion regular
 t_mas = r'\+'
 t_menos = r'-'
 t_por = r'\*'
@@ -51,66 +54,65 @@ t_ge = r'\>\='
 t_le = r'\<\='
 t_num = r'\#'
 
-# A regular expression rule with some action code
+# Define el token de un digito con su valor
 
 def t_digito(t):
     r'\d+'
     t.value = int(t.value)
     return t
 
-# Define a rule so we can track line numbers
+# Para leer el número de línea
 
 def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
 
-# A string containing ignored characters (spaces and tabs)
+# Permite ignorar espacios y tabs en el codigo
 t_ignore = ' \t'
 
+# Token para palabras reservadas especificas a c++
 def t_palabraReservada(t):
-    #10 palabras, máximo 15, agregue 4 palabras mas, esta abierto a modificación
+    #Utilizado el maximo de 15 palabras, aunque siguen sin ser s
     r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)|(include)'
     return t
 
+# Token para los identificadores, deben de iniciar con una letra mayuscula o minuscula o un guión bajo
 def t_identificador(t):
     r'([a-z]|[A-Z]|_)([a-z]|[A-Z]|\d|_)*'
     return t
 
+# Token de una cadena string
 def t_cadena(t):
     r'\".*\"'
     return t
 
-#comentarios del lenguaje son ignorados/omitidos
-
+#Ignoramos comentarios al no regresar el token en cuestion
+# Permite ignorar los comentarios del lenguaje
 def t_comentario(t):
     r'\/\/.*'
     #return t
 
+# Para comentarios de bloque
 def t_comentarioBloque(t):
     r'\/\*(.|\n)*\*\/'
     #return t
 
-# Error handling rule
-
+# Manejo de errores
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
-    # en el caso que se detecten elementos no pertenecientes
-    # al lenguaje, indicamos un error y omitimos el elemento.
     t.lexer.skip(1)
     return t
 
-# Build the lexer
+# Buildeando el lexer
 lexer = lex.lex()
 
-#ejemplo del lexer en funcionamiento
+# Funcion para echar el lexer en funcionamiento
 def miLexer():
-    #creando un contador
     contador = 0
     #declarando un arbol BST
     #creando nodo root
     root = None
     f = open('fuente.cpp', 'r')
-    # lexer.input('3+4*_a23+-20*2')
     lexer.input(f.read())
     while True:
         tok = lexer.token()
@@ -118,10 +120,8 @@ def miLexer():
             break
         # mostrar la lista de elementos lexicográficos encontrados
         print("[Tipo:", tok.type, "]", "[Valor:", tok.value, "]","[Número de Línea:", tok.lineno, "]", "[Posición en texto:", tok.lexpos, "]")
-        # aqui se deberia ir almacenando en cada paso del while
+        # aqui se almacena en cada paso del while
         # un token en un BST, el cual imprimiremos al final.
-        # .lineno is Current line number
-        # .lexpos is Current position in input text
         if root is None:
             root = Node(tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
         else:
@@ -130,11 +130,6 @@ def miLexer():
     #tabla de simbolos imprimir
     print("******** Imprimiendo tabla de simbolos ********")
     printInorder(root)
-    #Printing info from single node root
-#    print("Printing single node")
-#    leftChild = root.left
-#    printNode(root.left)
 
 print("******** Ejecutando mi lexer ********")
 miLexer()
-# TODO tabla de símbolos construida 
