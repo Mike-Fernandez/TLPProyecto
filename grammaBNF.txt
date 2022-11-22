@@ -1,0 +1,21 @@
+VL = value (number or char)
+ID = identificador
+
+
+<programa> ::= <declList>
+
+<declList> ::= <decl> <declList>
+
+<decl> ::= <vardecl> | <fundecl>
+
+<vardecl> ::= <tipo de dato> <vardeclList>
+
+<vardeclList> ::= <vardeclInit> "," <vardeclList> | <vardeclInit>
+
+<vardeclInit> ::= "ID" ";" | "ID" "=" "VL" ";"
+
+<tipo de dato> ::= int | char | float
+
+<fundecl> ::= <tipo de dato> "ID" "(" <opc-parametros> ")" "{" <linea> "}"
+
+<opc-parametros> ::= <tipo de dato> "id" | <tipo de dato> <id> "," <opc-parametros> | e
