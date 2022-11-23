@@ -16,6 +16,14 @@ ID = identificador
 
 <tipo de dato> ::= int | char | float
 
-<fundecl> ::= <tipo de dato> "ID" "(" <opc-parametros> ")" "{" <linea> "}"
+<fundecl> ::= <tipo de dato> "ID" "(" <opc-parametros> ")" "{" <stmtList> "}"
 
-<opc-parametros> ::= <tipo de dato> "id" | <tipo de dato> <id> "," <opc-parametros> | e
+<opc-parametros> ::= <tipo de dato> "ID" | <tipo de dato> "ID" "," <opc-parametros> | "e"
+
+stmtList ::= <stmt> ";" "\n" <stmtList> | <stmt> ";" "\n" | "e"
+
+<stmt> ::= <expStmt> | <selectStmt> | <iterStmt> | <returnStmt> | <breakStmt>
+
+<expStmt> ::= <exp> ; | ;
+
+<selectStmt> ::= "if" "(" <simpleExp> ")" "then" stmt | 
