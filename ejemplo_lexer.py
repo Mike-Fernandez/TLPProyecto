@@ -13,23 +13,23 @@ from bstInorder import *
 # Tokens a utilizar
 tokens = (
     'digito',
-    'mas',
+    'mas',#• Cuatro operadores aritméticos y tres operados lógicos
     'menos',
     'por',
     'entre',
     'parenIzq',
     'parenDer',
-    'palabraReservada',
-    'identificador',
+    'palabraReservada',# Tipos de datos: int, char, float. | Palabras claves o reservadas: char, int, float, return, void, if, else
+    'identificador',#Utilización de variables
     'inicioBloque',
     'finBloque',
     'finInstruccion',
     'asignacion',
-    'comentario',
-    'comentarioBloque',
+    'comentario',#Manejo de comentarios 
+    'comentarioBloque',#Manejo de comentarios 
     'cadena',
     'coma',
-    'gt',
+    'gt',#• Cuatro operadores aritméticos y tres operados lógicos
     'lt',
     'ge',
     'le',
@@ -37,7 +37,7 @@ tokens = (
 )
 
 # Tokens descritos en su version de expresion regular
-t_mas = r'\+'
+t_mas = r'\+'#• Cuatro operadores aritméticos y tres operados lógicos
 t_menos = r'-'
 t_por = r'\*'
 t_entre = r'/'
@@ -48,7 +48,7 @@ t_finBloque = r'\}'
 t_finInstruccion = r'\;'
 t_asignacion = r'\='
 t_coma = r'\,'
-t_gt = r'\>'
+t_gt = r'\>'#• Cuatro operadores aritméticos y tres operados lógicos
 t_lt = r'\<'
 t_ge = r'\>\='
 t_le = r'\<\='
@@ -73,10 +73,15 @@ t_ignore = ' \t'
 # Token para palabras reservadas especificas a c++
 def t_palabraReservada(t):
     #Utilizado el maximo de 15 palabras, aunque siguen sin ser s
-    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)|(include)'
+    # Tipos de datos: int, char, float.
+    # Instrucciones: condicional if-else (hasta ahora solo las keywords) 
+    # Palabras claves o reservadas: char, int, float, return, void, if, else (ojo esta return void tambien)
+    # Instrucciones de iteración: do-while, while o for
+    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
     return t
 
 # Token para los identificadores, deben de iniciar con una letra mayuscula o minuscula o un guión bajo
+#Utilización de variables
 def t_identificador(t):
     r'([a-z]|[A-Z]|_)([a-z]|[A-Z]|\d|_)*'
     return t
@@ -88,11 +93,13 @@ def t_cadena(t):
 
 #Ignoramos comentarios al no regresar el token en cuestion
 # Permite ignorar los comentarios del lenguaje
+# Manejo de comentarios 
 def t_comentario(t):
     r'\/\/.*'
     #return t
 
 # Para comentarios de bloque
+# Manejo de comentarios 
 def t_comentarioBloque(t):
     r'\/\*(.|\n)*\*\/'
     #return t
