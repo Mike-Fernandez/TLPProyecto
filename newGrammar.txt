@@ -1,0 +1,24 @@
+Start -> declare 
+declare -> type var branch
+branch -> ( params ) { stmt } 
+branch -> eq var_fin eol
+params -> type var cm var_params
+var_params -> ''
+var_params -> params
+eq -> =
+eq -> ,
+cm -> ,
+cm -> ''
+var_fin -> branch 
+var_fin -> ''
+var_fin -> a
+type -> int 
+type -> char
+type -> float
+var -> id
+eol -> ;
+stmt -> expStmt eol
+expStmt -> type var eq var_stmt 
+var_stmt -> expStmt
+var_stmt -> ''
+var_stmt -> a

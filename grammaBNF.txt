@@ -1,6 +1,8 @@
 VL = value (number or char)
 ID = identificador
+minmax seran proposiciones (ID | NUM | TRUE | FALSE)
 
+<struct> ::= 
 
 <programa> ::= <declList>
 
@@ -20,10 +22,26 @@ ID = identificador
 
 <opc-parametros> ::= <tipo de dato> "ID" | <tipo de dato> "ID" "," <opc-parametros> | "e"
 
-stmtList ::= <stmt> ";" "\n" <stmtList> | <stmt> ";" "\n" | "e"
+<stmtList> ::= <stmt> ";" "\n" <stmtList> | <stmt> ";" | "e"
 
 <stmt> ::= <expStmt> | <selectStmt> | <iterStmt> | <returnStmt> | <breakStmt>
 
 <expStmt> ::= <exp> ; | ;
 
-<selectStmt> ::= "if" "(" <simpleExp> ")" "then" stmt | 
+<selectStmt> ::= "if" "(" <simpleExp> ")" "{" <stmt> "}" | "if" "(" <simpleExp> ")" "{" stmt "}" "else" "{" <stmt> "}" 
+
+<iterStmt> ::= "while" "(" <simpleExp> ")" "{" <stmt> "}" | "do" "{" <stmt> "}" "while" "(" <simpleExp> ")" 
+        | "for" "(" <stmt> ";" <stmt> ";" <stmt> ")" "{" <stmt> "}"
+
+<returnStmt> ::= "return" ";" | "return" <exp> ";"
+
+<breakStmt> ::= "break" ";"
+
+<exp> ::= "ID" "=" <exp> | <simpleExp>
+
+<simpleExp> ::= <andExp> "OR" <simpleExp> | <andExp>
+
+<andExp> ::= <unarioExp> "AND" <andExp> | <unarioExp>
+
+<unarioExp> ::= "NOT" <unarioExp> | <relExp>
+
