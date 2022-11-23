@@ -1,4 +1,6 @@
-Start -> declare 
+Start -> declare
+Start -> comment Start
+comment -> /
 declare -> type var branch
 branch -> ( params ) { stmt } 
 branch -> eq var_fin eol
@@ -18,7 +20,11 @@ type -> float
 var -> id
 eol -> ;
 stmt -> expStmt eol
+stmt -> ifStmt
 expStmt -> type var eq var_stmt 
 var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> a
+ifStmt -> if ( simpleExp ) { stmt } 
+simpleExp -> a
+
