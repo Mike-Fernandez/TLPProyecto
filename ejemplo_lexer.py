@@ -77,7 +77,7 @@ def t_palabraReservada(t):
     # Instrucciones: condicional if-else (hasta ahora solo las keywords) 
     # Palabras claves o reservadas: char, int, float, return, void, if, else (ojo esta return void tambien)
     # Instrucciones de iteración: do-while, while o for
-    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)'
+    r'(const)|(struct)|(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)|(true)|(false)'
     return t
 
 # Token para los identificadores, deben de iniciar con una letra mayuscula o minuscula o un guión bajo
