@@ -5,6 +5,8 @@ declare -> type var branch
 branch -> ( params ) { stmt } 
 branch -> eq var_fin eol
 params -> type var cm var_params
+params -> ''
+params -> void
 var_params -> ''
 var_params -> params
 eq -> =
@@ -17,11 +19,14 @@ var_fin -> a
 type -> int 
 type -> char
 type -> float
+type -> void
 var -> id
 eol -> ;
 stmt -> expStmt eol
 stmt -> ifStmt
 stmt -> iterStmt
+stmt -> returnStmt
+returnStmt -> return var_stmt eol
 expStmt -> type var eq var_stmt
 expStmt -> var exp 
 var_stmt -> expStmt
@@ -36,5 +41,3 @@ iterStmt -> for ( expStmt ; expStmt ; expStmt ) { stmt }
 exp -> < a
 exp -> = b
 simpleExp -> a
-
-
