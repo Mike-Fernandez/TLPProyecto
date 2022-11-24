@@ -1,13 +1,11 @@
 Start -> declare
 Start -> comment Start
-comment -> /
+comment -> //
 declare -> type var branch
 branch -> ( params ) { stmt } 
 branch -> eq var_fin eol
 params -> type var cm var_params
 params -> ''
-params -> void
-var_params -> ''
 var_params -> params
 eq -> =
 eq -> ,
@@ -28,7 +26,7 @@ stmt -> iterStmt
 stmt -> returnStmt
 returnStmt -> return var_stmt eol
 expStmt -> type var eq var_stmt
-expStmt -> var exp 
+expStmt -> var op expr
 var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> a
@@ -38,6 +36,15 @@ els -> else { stmt }
 iterStmt -> while ( simpleExp ) { stmt }
 iterStmt -> do { stmt } while ( simpleExp )
 iterStmt -> for ( expStmt ; expStmt ; expStmt ) { stmt }
-exp -> < a
-exp -> = b
+op -> <
+op -> >
+op -> =
+expr -> var expr_tail
+expr -> a
+expr -> b
+expr_tail -> + expr
+expr_tail -> - expr
+expr_tail -> * expr
+expr_tail -> / expr
+expr_tail -> ''
 simpleExp -> a
