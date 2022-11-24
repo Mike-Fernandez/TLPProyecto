@@ -30,15 +30,20 @@ expStmt -> var op expr
 var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> a
-ifStmt -> if ( simpleExp ) { stmt } els
+ifStmt -> if ( ASimpleExp ) { stmt } els
 els -> ''
 els -> else { stmt }
-iterStmt -> while ( simpleExp ) { stmt }
-iterStmt -> do { stmt } while ( simpleExp )
+iterStmt -> while ( ASimpleExp ) { stmt }
+iterStmt -> do { stmt } while ( ASimpleExp )
 iterStmt -> for ( expStmt ; expStmt ; expStmt ) { stmt }
 op -> <
+op -> <=
 op -> >
+op -> >=
 op -> =
+op -> ==
+op -> ||
+op -> &&
 expr -> var expr_tail
 expr -> a
 expr -> b
@@ -47,4 +52,6 @@ expr_tail -> - expr
 expr_tail -> * expr
 expr_tail -> / expr
 expr_tail -> ''
-simpleExp -> a
+ASimpleExp -> ! ( simpleExp )
+ASimpleExp -> simpleExp
+simpleExp -> var op expr
