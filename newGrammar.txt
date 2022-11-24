@@ -47,6 +47,8 @@ op -> &&
 expr -> var expr_tail
 expr -> a
 expr -> b
+expr -> TRUE
+expr -> FALSE
 expr_tail -> + expr
 expr_tail -> - expr
 expr_tail -> * expr
@@ -54,4 +56,5 @@ expr_tail -> / expr
 expr_tail -> ''
 ASimpleExp -> ! ( simpleExp )
 ASimpleExp -> simpleExp
+ASimpleExp -> expr
 simpleExp -> var op expr
