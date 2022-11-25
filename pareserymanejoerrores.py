@@ -43,15 +43,36 @@ tokens = (
     'finBloque',
     'finInstruccion',
     'asignacion',
+    'comentarioL',#Manejo de comentarios 
     'comentario',#Manejo de comentarios 
-    'comentarioBloque',#Manejo de comentarios 
     'cadena',
     'coma',
     'gt',#• Cuatro operadores aritméticos y tres operados lógicos
     'lt',
     'ge',
     'le',
-    'num'
+    'tInt',
+    'tChar',
+    'tFloat',
+    'tVoid',
+    'tLong',
+    'tDouble',
+    'numeral',
+    'letterdigit',
+    'tOR',
+    'tAND',
+    'tNOT',
+    'tTRUE',
+    'tFALSE',
+    'tReturn',
+    'tIf',
+    'tElse',
+    'tWhile',
+    'tDo',
+    'tFor',
+    'doubleEq',
+    'vacia',
+    'eof'
 )
 
 # Regular expression rules for simple tokens
@@ -65,12 +86,18 @@ t_inicioBloque = r'\{'
 t_finBloque = r'\}'
 t_finInstruccion = r'\;'
 t_asignacion = r'\='
+t_doubleEq = r'\=\='
+t_tOR = r'\|\|'
+t_tAND = r'\&\&'
+t_tNOT = r'\!'
 t_coma = r'\,'
 t_gt = r'\>'#• Cuatro operadores aritméticos y tres operados lógicos
 t_lt = r'\<'
 t_ge = r'\>\='
 t_le = r'\<\='
-t_num = r'\#'
+t_numeral = r'\#'
+t_vacia = r'\'\''
+t_eof = r'\$'
 
 #t_vacia= r'\'  
 
@@ -88,6 +115,62 @@ def t_newline(t):
 # Permite ignorar espacios y tabs en el codigo
 t_ignore = ' \t'
 
+def t_tInt(t):
+    r'(int)'
+    return t
+
+def t_tChar(t):
+    r'(char)'
+    return t
+
+def t_tFloat(t):
+    r'(float)'
+    return t
+
+def t_tVoid(t):
+    r'(void)'
+    return t
+
+def t_tLong(t):
+    r'(long)'
+    return t
+
+def t_tDouble(t):
+    r'(double)'
+    return t
+
+def t_tTRUE(t):
+    r'(TRUE)'
+    return t
+
+def t_tFALSE(t):
+    r'(FALSE)'
+    return t
+
+def t_tReturn(t):
+    r'(return)'
+    return t
+
+def t_tIf(t):
+    r'(if)'
+    return t
+
+def t_tElse(t):
+    r'(else)'
+    return t
+
+def t_tWhile(t):
+    r'(while)'
+    return t
+
+def t_tDo(t):
+    r'(do)'
+    return t
+
+def t_tFor(t):
+    r'(for)'
+    return t
+
 # Token para palabras reservadas especificas a c++
 def t_palabraReservada(t):
     #Utilizado el maximo de 15 palabras, aunque siguen sin ser s
@@ -95,7 +178,7 @@ def t_palabraReservada(t):
     # Instrucciones: condicional if-else (hasta ahora solo las keywords) 
     # Palabras claves o reservadas: char, int, float, return, void, if, else (ojo esta return void tambien)
     # Instrucciones de iteración: do-while, while o for
-    r'(long)|(double)|(int)|(float)|(char)|(return)|(if)|(else)|(do)|(while)|(for)|(void)|(true)|(false)'
+    r'(return)|(if)|(else)|(do)|(while)|(for)'
     return t
 
 # Token para los identificadores, deben de iniciar con una letra mayuscula o minuscula o un guión bajo
@@ -112,13 +195,13 @@ def t_cadena(t):
 #Ignoramos comentarios al no regresar el token en cuestion
 # Permite ignorar los comentarios del lenguaje
 # Manejo de comentarios 
-def t_comentario(t):
+def t_comentarioL(t):
     r'\/\/.*'
     #return t
 
 # Para comentarios de bloque
 # Manejo de comentarios 
-def t_comentarioBloque(t):
+def t_comentario(t):
     r'\/\*(.|\n)*\*\/'
     #return t
 
@@ -126,6 +209,10 @@ def t_comentarioBloque(t):
 def t_error(t):
     print("Illegal character '%s'" % t.value[0])
     t.lexer.skip(1)
+    return t
+
+def t_letterdigit(t):
+    r'([a-z]|[A-Z]|\d)*'
     return t
 
 tabla2 = [ [Start, 'comentario', [comment,Start] ],
