@@ -1,10 +1,10 @@
 Start -> declare
 Start -> comment Start
 comment -> //
-declare -> type var branch
+declare -> tipo var branch
 branch -> ( params ) { stmt } 
 branch -> eq var_fin eol
-params -> type var cm var_params
+params -> tipo var cm var_params
 params -> ''
 var_params -> params
 eq -> =
@@ -13,11 +13,14 @@ cm -> ,
 cm -> ''
 var_fin -> branch 
 var_fin -> ''
-var_fin -> a
-type -> int 
-type -> char
-type -> float
-type -> void
+var_fin -> text
+var_fin -> digito
+tipo -> int 
+tipo -> char
+tipo -> float
+tipo -> void
+tipo -> long
+tipo -> double
 var -> id
 eol -> ;
 stmt -> expStmt eol
@@ -25,11 +28,12 @@ stmt -> ifStmt
 stmt -> iterStmt
 stmt -> returnStmt
 returnStmt -> return var_stmt eol
-expStmt -> type var eq var_stmt
+expStmt -> tipo var eq var_stmt
 expStmt -> var op expr
 var_stmt -> expStmt
 var_stmt -> ''
-var_stmt -> a
+var_stmt -> text
+var_stmt -> digito
 ifStmt -> if ( ASimpleExp ) { stmt } els
 els -> ''
 els -> else { stmt }
@@ -45,8 +49,8 @@ op -> ==
 op -> ||
 op -> &&
 expr -> var expr_tail
-expr -> a
-expr -> b
+expr -> digito
+expr -> text
 expr -> TRUE
 expr -> FALSE
 expr_tail -> + expr
