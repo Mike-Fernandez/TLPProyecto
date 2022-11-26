@@ -37,6 +37,7 @@ returnStmt -> return var_stmt eol
 expStmt -> tipo var eq var_stmt
 expStmt -> op expr
 expStmt -> callF
+var_stmt -> var
 var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> text
