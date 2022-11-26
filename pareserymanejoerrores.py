@@ -2,6 +2,7 @@
 # Lexer para C
 # ------------------------------------------------------------
 import ply.lex as lex
+from bstInorder import *
 
 Start=0
 callF=1
@@ -1200,6 +1201,9 @@ stack = ['eof', 0]
 lexer = lex.lex()
 
 def miParser():
+    contador = 0
+    root = None
+    aux = None
     f = open('prueba.c','r')
     lexer.input(f.read())
     #lexer.input('total_mujeres+total_hombres)$')
@@ -1212,23 +1216,36 @@ def miParser():
         #print(x)
         if x == tok.type and x == 'eof':
             print("Cadena terminada exitosamente")
+            print("******** Imprimiendo tabla de simbolos ********")
+            printInorder(root)
             return #aceptar
         else:
+            #Agregando nodos a la tabla de simbolos
+            if root is None:
+                root = Node(tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
+                aux = tok
+                contador += 1
+            else:
+                if aux.lexpos != tok.lexpos :
+                    root = insert(root, tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
+                    contador += 1
+                    aux = tok
+            
             if x == tok.type and x != 'eof':#llegué a un camino de derivación completo
                 stack.pop()
                 x=stack[-1]
-                tok=lexer.token()                
-            if x in tokens and x != tok.type:                
+                tok=lexer.token()
+            if x in tokens and x != tok.type:
                 print("Error: se esperaba ", x)
                 print('en la posicion: ', tok.lexpos)
-                #panic mode                
+                #panic mode
                 while True:
                     tok = lexer.token()# Get the next token
                     if tok.type == x: 
                         break
                 
             if x not in tokens: #es no terminal
-                celda=buscar_en_tabla(x,tok.type)                            
+                celda=buscar_en_tabla(x,tok.type)
                 if  celda is None:
                     print("Error: NO se esperaba", tok.type)
                     print('en la posicion: ', tok.lexpos)
@@ -1239,8 +1256,6 @@ def miParser():
                     agregar_pila(celda)
                     x=stack[-1]
         print(stack)
-        print()
-
             
         #if not tok:
             #break
