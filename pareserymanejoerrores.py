@@ -1,9 +1,10 @@
 # ------------------------------------------------------------
-# Lexer para C
+# Parser para subset de C
 # ------------------------------------------------------------
 import ply.lex as lex
 from bstInorder import *
 
+#Non-terminal symbols from grammar
 Start=0
 callF=1
 comment=2
@@ -30,7 +31,7 @@ expr_tail=22
 ASimpleExp=23
 simpleExp=24
 
-# List of token names.   This is always required
+# List of token names
 tokens = (
     'digito',
     'mas',#• Cuatro operadores aritméticos y tres operados lógicos
@@ -101,14 +102,10 @@ t_numeral = r'\#'
 t_vacia = r'\'\''
 t_eof = r'\$'
 
-#t_vacia= r'\'  
-
 def t_digito(t):
     r'\d+'
     t.value = int(t.value)
     return t
-
-# Para leer el número de línea
 
 def t_newline(t):
     r'\n+'
@@ -173,16 +170,6 @@ def t_tFor(t):
     r'(for)'
     return t
 
-# Token para palabras reservadas especificas a c++
-def t_palabraReservada(t):
-    #Utilizado el maximo de 15 palabras, aunque siguen sin ser s
-    # Tipos de datos: int, char, float.
-    # Instrucciones: condicional if-else (hasta ahora solo las keywords) 
-    # Palabras claves o reservadas: char, int, float, return, void, if, else (ojo esta return void tambien)
-    # Instrucciones de iteración: do-while, while o for
-    r'(return)|(if)|(else)|(do)|(while)|(for)'
-    return t
-
 # Token para los identificadores, deben de iniciar con una letra mayuscula o minuscula o un guión bajo
 #Utilización de variables
 def t_identificador(t):
@@ -217,6 +204,7 @@ def t_text(t):
     r'\'([a-z]|[A-Z]|)+\''
     return t
 
+#Tabla correspondiente a gramatica hecha
 tabla2 = [ [Start, 'parenIzq', None ],
         [Start, 'parenDer', None ],
         [Start, 'comentarioL', [comment,Start] ],
@@ -1194,26 +1182,27 @@ tabla2 = [ [Start, 'parenIzq', None ],
         [simpleExp, 'eof', None],
         ]
 
+#Estado inicial del stack
 stack = ['eof', 0]
 
 
-# Build the lexer
+# Creando el lexer
 lexer = lex.lex()
 
+#Funcion con logica del parser
 def miParser():
+    #Variables para utilizar la tabla de simbolos
     contador = 0
     root = None
     aux = None
+    #File a utilizar
     f = open('prueba.c','r')
     lexer.input(f.read())
-    #lexer.input('total_mujeres+total_hombres)$')
-    
 
     tok=lexer.token()
-    x=stack[-1] #primer elemento de der a izq
+    x=stack[-1]
     while True:
-        #print(tok.type)
-        #print(x)
+        #Fin de file, la logica se detiene
         if x == tok.type and x == 'eof':
             print("Cadena terminada exitosamente")
             print("******** Imprimiendo tabla de simbolos ********")
@@ -1230,47 +1219,47 @@ def miParser():
                     root = insert(root, tokenInfo(contador,tok.type,tok.value,tok.lineno,tok.lexpos))
                     contador += 1
                     aux = tok
-            
-            if x == tok.type and x != 'eof':#llegué a un camino de derivación completo
+            #Final de camino de derivación
+            if x == tok.type and x != 'eof':
                 stack.pop()
                 x=stack[-1]
                 tok=lexer.token()
+            #Error de token inesperado
             if x in tokens and x != tok.type:
                 print("Error: se esperaba ", x)
                 print('en la posicion: ', tok.lexpos)
-                #panic mode
                 while True:
-                    tok = lexer.token()# Get the next token
+                    tok = lexer.token()
                     if tok.type == x: 
                         break
-                
-            if x not in tokens: #es no terminal
+            #Caso de token siendo no terminal
+            if x not in tokens: 
                 celda=buscar_en_tabla(x,tok.type)
                 if  celda is None:
+                    #Si no se encuentra en tabla, error de sintaxis
                     print("Error: NO se esperaba", tok.type)
                     print('en la posicion: ', tok.lexpos)
                     print("Celda: ", celda)
                     return 0
-                else:                    
+                else:
+                    #Resolucion de token no terminal
                     stack.pop()
                     agregar_pila(celda)
                     x=stack[-1]
+        #Mostrar el estado actual del stack
         print(stack)
-            
-        #if not tok:
-            #break
-        #print(tok)
-        #print(tok.type, tok.value, tok.lineno, tok.lexpos)
 
+#Herramienta para buscar en tabla de gramatica
 def buscar_en_tabla(no_terminal, terminal):
     for i in range(len(tabla2)):
         if( tabla2[i][0] == no_terminal and tabla2[i][1] == terminal):
-            return tabla2[i][2] #retorno la celda
+            return tabla2[i][2]
 
+#Logica de agregar elementos al stack del parser
 def agregar_pila(produccion):
     for elemento in reversed(produccion):
-        if elemento != 'vacia': #la vacía no la inserta
+        if elemento != 'vacia':
             stack.append(elemento)
 
-
+#Llamar al parser
 miParser()
