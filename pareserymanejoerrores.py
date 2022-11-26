@@ -980,7 +980,7 @@ tabla2 = [ [Start, 'parenIzq', None ],
         [iterStmt, 'tElse', None],
         [iterStmt, 'tWhile', ['tWhile','parenIzq',ASimpleExp,'parenDer','inicioBloque',stmt,'finBloque']],
         [iterStmt, 'tDo', ['tDo','inicioBloque',stmt,'finBloque','tWhile','parenIzq',ASimpleExp,'parenDer',eol]],
-        [iterStmt, 'tFor', ['tFor','parenIzq',expStmt,'finInstruccion',expStmt,'finInstruccion',expStmt,'parenDer','inicioBloque',stmt,'finBloque']],
+        [iterStmt, 'tFor', ['tFor','parenIzq',ASimpleExp,'finInstruccion',ASimpleExp,'finInstruccion',ASimpleExp,'parenDer','inicioBloque',stmt,'finBloque']],
         [iterStmt, 'lt', None],
         [iterStmt, 'le', None],
         [iterStmt, 'gt', None],
@@ -1200,7 +1200,7 @@ stack = ['eof', 0]
 lexer = lex.lex()
 
 def miParser():
-    f = open('fuente.c','r')
+    f = open('prueba.c','r')
     lexer.input(f.read())
     #lexer.input('total_mujeres+total_hombres)$')
     
