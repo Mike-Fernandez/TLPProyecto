@@ -296,8 +296,8 @@ tabla2 = [ [Start, 'parenIzq', None ],
         [callF, 'eof', None],
         [comment, 'parenIzq', None ],
         [comment, 'parenDer', None ],
-        [comment, 'comentarioL', ['commentarioL'] ],
-        [comment, 'comentarioB', ['commentarioB'] ],
+        [comment, 'comentarioL', ['comentarioL'] ],
+        [comment, 'comentarioB', ['comentarioB'] ],
         [comment, 'inicioBloque', None],
         [comment, 'finBloque', None],
         [comment, 'asignacion', None],
@@ -1227,11 +1227,12 @@ def miParser():
                     if tok.type == x: 
                         break
                 
-            if x not in tokens: #es no terminal      
+            if x not in tokens: #es no terminal
                 celda=buscar_en_tabla(x,tok.type)                            
                 if  celda is None:
                     print("Error: NO se esperaba", tok.type)
                     print('en la posicion: ', tok.lexpos)
+                    print("Celda: ", celda)
                     return 0
                 else:                    
                     stack.pop()

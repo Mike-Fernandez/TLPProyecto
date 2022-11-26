@@ -47,7 +47,7 @@ els -> ''
 els -> else { stmt }
 iterStmt -> while ( ASimpleExp ) { stmt }
 iterStmt -> do { stmt } while ( ASimpleExp ) eol
-iterStmt -> for ( expStmt ; expStmt ; expStmt ) { stmt }
+iterStmt -> for ( ASimpleExp ; ASimpleExp ; ASimpleExp ) { stmt }
 op -> <
 op -> <=
 op -> >
