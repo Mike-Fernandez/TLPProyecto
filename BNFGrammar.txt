@@ -1,24 +1,27 @@
 <Start> ::= <declare> | <comment> <Start>
+<callf> ::= ( params )
 <comment> ::= 'comentario' | 'comentarioBloque'
 <declare> ::= <type> <var> <branch>
 <branch> ::= ( <params> ) { <stmt> } | <eq> <var_fin> <eol>
-<params> ::= <type> <var> <cm> <var_params> | ""
+<params> ::= <type> <var> <cm> <var_params> | ´´
 <var_params> ::= <params>
 <eq> ::= = | ,
-<cm> ::= , | ""
-<var_fin> ::= <branch> | 'letterdigit' | ""
-<type> ::= int | char | float | void
+<cm> ::= , | ''
+<var_fin> ::= <branch> | 'letterdigit' | text | digito
+<type> ::= int | char | float | void | long | double |
 <var> ::= 'identificador'
 <eol> ::= ;
-<stmt> ::= <expStmt> <eol> | <ifStmt> | <iterStmt> | <returnStmt>
+<stmt> ::= <comment> |<expStmt> <eol> | <var> <expStmt> <eol> |<ifStmt> | <iterStmt> | <returnStmt> 
 <returnStmt> ::= return <var_stmt> <eol>
-<expStmt> ::= <type> <var> <eq> <var_stmt> | <var> <op> <expr>
-<var_stmt> ::= <expStmt> | 'letterdigit' | ""
+<expStmt> ::= <type> <var> <eq> <var_stmt> | <op> <expr> |<callF>
+<var_stmt> ::= <var> | <expStmt> | 'letterdigit' | text | digito
 <ifStmt> ::= if ( <ASimpleExp> ) { <stmt> } <els>
 <els> ::= else { <stmt> } | ""
 <iterStmt> ::= while ( <ASimpleExp> ) { <stmt> } | do { <stmt> } while ( <ASimpleExp> ) | for ( <expStmt> ; <expStmt> ; <expStmt> ) { <stmt> }
-<op> ::= < | <= | > | >= | = | == | || | && 
-<expr> ::= <var> <expr_tail> | TRUE | FALSE | 'letterdigit'
-<expr_tail> ::= + <expr> | - <expr> | * <expr> | / <expr> | ""
+<op> ::= < | <= | > | >= | = | == | || | && | + | - | * | / |
+<expr> ::= <var> <expr_tail> | digito | text | TRUE | FALSE | 
+
+<expr_tail> ::= < <expr>|<= <expr>|> <expr>|>= <expr>| = <expr>| == <expr>| || <expr>| && <expr>| + <expr> | - <expr> | * <expr> | / <expr> | ""
+
 <ASimpleExp> ::= ! ( <simpleExp> ) | <simpleExp> | <expr>
-<simpleExp> ::= <var> <op> <expr>
+<simpleExp> ::= <type> <var> <op> <expr>
