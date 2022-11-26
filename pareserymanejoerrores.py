@@ -198,13 +198,13 @@ def t_cadena(t):
 # Manejo de comentarios 
 def t_comentarioL(t):
     r'\/\/.*'
-    #return t
+    return t
 
 # Para comentarios de bloque
 # Manejo de comentarios 
 def t_comentarioB(t):
     r'\/\*(.|\n)*\*\/'
-    #return t
+    return t
 
 # Manejo de errores
 def t_error(t):
