@@ -1,7 +1,10 @@
 Start -> declare
 Start -> comment Start
-comment -> //
+callF -> ( params )
+comment -> comentarioL
+comment -> comentarioB
 declare -> tipo var branch
+declare -> var ( params ) eol
 branch -> ( params ) { stmt } 
 branch -> eq var_fin eol
 params -> tipo var cm var_params
@@ -23,13 +26,17 @@ tipo -> long
 tipo -> double
 var -> id
 eol -> ;
-stmt -> expStmt eol
-stmt -> ifStmt
-stmt -> iterStmt
+stmt -> ''
+stmt -> comment stmt
+stmt -> expStmt eol stmt
+stmt -> var expStmt eol stmt
+stmt -> ifStmt stmt
+stmt -> iterStmt stmt
 stmt -> returnStmt
 returnStmt -> return var_stmt eol
 expStmt -> tipo var eq var_stmt
-expStmt -> var op expr
+expStmt -> op expr
+expStmt -> callF
 var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> text
@@ -38,7 +45,7 @@ ifStmt -> if ( ASimpleExp ) { stmt } els
 els -> ''
 els -> else { stmt }
 iterStmt -> while ( ASimpleExp ) { stmt }
-iterStmt -> do { stmt } while ( ASimpleExp )
+iterStmt -> do { stmt } while ( ASimpleExp ) eol
 iterStmt -> for ( expStmt ; expStmt ; expStmt ) { stmt }
 op -> <
 op -> <=
@@ -48,17 +55,18 @@ op -> =
 op -> ==
 op -> ||
 op -> &&
+op -> +
+op -> -
+op -> *
+op -> /
 expr -> var expr_tail
 expr -> digito
 expr -> text
 expr -> TRUE
 expr -> FALSE
-expr_tail -> + expr
-expr_tail -> - expr
-expr_tail -> * expr
-expr_tail -> / expr
+expr_tail -> op expr
 expr_tail -> ''
-ASimpleExp -> ! ( simpleExp )
+ASimpleExp -> ! ( expr ) expr_tail
 ASimpleExp -> simpleExp
 ASimpleExp -> expr
-simpleExp -> var op expr
+simpleExp -> tipo var op expr

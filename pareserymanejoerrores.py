@@ -44,7 +44,7 @@ tokens = (
     'finInstruccion',
     'asignacion',
     'comentarioL',#Manejo de comentarios 
-    'comentario',#Manejo de comentarios 
+    'comentarioB',#Manejo de comentarios 
     'cadena',
     'coma',
     'gt',#• Cuatro operadores aritméticos y tres operados lógicos
@@ -201,7 +201,7 @@ def t_comentarioL(t):
 
 # Para comentarios de bloque
 # Manejo de comentarios 
-def t_comentario(t):
+def t_comentarioB(t):
     r'\/\*(.|\n)*\*\/'
     #return t
 
