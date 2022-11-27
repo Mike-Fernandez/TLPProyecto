@@ -1,5 +1,5 @@
-Start -> declare
-Start -> comment Start
+start -> declare
+start -> comment start
 callF -> ( params )
 comment -> comentarioL
 comment -> comentarioB
@@ -42,12 +42,12 @@ var_stmt -> expStmt
 var_stmt -> ''
 var_stmt -> text
 var_stmt -> digito
-ifStmt -> if ( ASimpleExp ) { stmt } els
+ifStmt -> if ( aSimpleExp ) { stmt } els
 els -> ''
 els -> else { stmt }
-iterStmt -> while ( ASimpleExp ) { stmt }
-iterStmt -> do { stmt } while ( ASimpleExp ) eol
-iterStmt -> for ( ASimpleExp ; ASimpleExp ; ASimpleExp ) { stmt }
+iterStmt -> while ( aSimpleExp ) { stmt }
+iterStmt -> do { stmt } while ( aSimpleExp ) eol
+iterStmt -> for ( aSimpleExp ; aSimpleExp ; aSimpleExp ) { stmt }
 op -> <
 op -> <=
 op -> >
@@ -67,7 +67,7 @@ expr -> TRUE
 expr -> FALSE
 expr_tail -> op expr
 expr_tail -> ''
-ASimpleExp -> ! ( expr ) expr_tail
-ASimpleExp -> simpleExp
-ASimpleExp -> expr
+aSimpleExp -> ! ( expr ) expr_tail
+aSimpleExp -> simpleExp
+aSimpleExp -> expr
 simpleExp -> tipo var op expr

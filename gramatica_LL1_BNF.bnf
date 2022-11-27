@@ -1,4 +1,8 @@
-<Start> ::= <declare> | <comment> <Start>
+OJO esta gramatica esta mas pequeña que su fuente, faltan 50 reglas
+<start> ::= <declare> | <comment> <start>
+
+<callF> ::= "(" <params> ")"
+
 <comment> ::= 'comentario' | 'comentarioBloque'
 <declare> ::= <type> <var> <branch>
 <branch> ::= ( <params> ) { <stmt> } | <eq> <var_fin> <eol>
