@@ -6,5 +6,5 @@
   <li>Julio Alfredo Machado Olivo</li>
   <li>Saúl Ernesto Orellana Jiménez</li>
   <li>Nuria Melissa Rivas Canjura</li>
-  <liMiguel Ernesto Rivas Serrano</li>
+  <li>Miguel Ernesto Rivas Serrano</li>
 </ul>
