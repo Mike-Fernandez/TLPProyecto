@@ -1,6 +1,0 @@
-DONE Declaración y definición de funciones (solo la gramatica)
-Instrucciones de iteración: do-while, while o for (gramatica)
-Palabras claves adicionales y sus funcionalidades (tanto keywords como gramatica)
-documentacion BNF, con definiciones y notas.
-funcionalidad sobre errores
-agregar tabla de simbolos al parser con el bst de la fase anterior
