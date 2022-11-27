@@ -103,7 +103,7 @@ t_vacia = r'\'\''
 t_eof = r'\$'
 
 def t_digito(t):
-    r'\d+'
+    r'(\d+)|(\d+\.\d+)'
     t.value = int(t.value)
     return t
 

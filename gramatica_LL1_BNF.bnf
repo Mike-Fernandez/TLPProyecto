@@ -1,28 +1,35 @@
-OJO esta gramatica esta mas pequeña que su fuente, faltan 50 reglas
+# BNF de gramatica LL1 para parser de un sub-set de c
+# terminal "" = vacio 
 <start> ::= <declare> | <comment> <start>
-
 <callF> ::= "(" <params> ")"
-
-<comment> ::= 'comentario' | 'comentarioBloque'
-<declare> ::= <type> <var> <branch>
-<branch> ::= ( <params> ) { <stmt> } | <eq> <var_fin> <eol>
-<params> ::= <type> <var> <cm> <var_params> | ""
+<comment> ::= "comentarioL" | "comentarioB"
+<declare> ::= <tipo> <var> <branch> | <var> "(" <params> ")" <eol>
+<branch> ::= "(" <params> ")" "{" <stmt> "}" | <eq> <var_fin> <eol>
+<params> ::= <tipo> <var> <cm> <var_params> | ""
 <var_params> ::= <params>
-<eq> ::= = | ,
-<cm> ::= , | ""
-<var_fin> ::= <branch> | 'letterdigit' | ""
-<type> ::= "int" | "char" | "float" | "void"
-<var> ::= 'identificador'
-<eol> ::= ;
-<stmt> ::= <expStmt> <eol> | <ifStmt> | <iterStmt> | <returnStmt>
-<returnStmt> ::= return <var_stmt> <eol>
-<expStmt> ::= <type> <var> <eq> <var_stmt> | <var> <op> <expr>
-<var_stmt> ::= <expStmt> | 'letterdigit' | ""
-<ifStmt> ::= if ( <ASimpleExp> ) { <stmt> } <els>
-<els> ::= else { <stmt> } | ""
-<iterStmt> ::= while ( <ASimpleExp> ) { <stmt> } | do { <stmt> } while ( <ASimpleExp> ) | for ( <expStmt> ; <expStmt> ; <expStmt> ) { <stmt> }
-<op> ::= "<" | "<=" | ">" | ">=" | "=" | "==" | "||" | "&&" 
-<expr> ::= <var> <expr_tail> | "TRUE" | "FALSE" | 'letterdigit'
-<expr_tail> ::= + <expr> | - <expr> | * <expr> | / <expr> | ""
-<ASimpleExp> ::= ! ( <simpleExp> ) | <simpleExp> | <expr>
-<simpleExp> ::= <var> <op> <expr>
+<eq> ::= "=" | "," 
+<cm> ::= "," | ""
+<var_fin> ::= <branch> | "" | "text" | "digito"
+<tipo> ::= "int" | "char" | "float" | "void" | "long" | "double"
+<var> ::= "id"
+<eol> ::= ";"
+<stmt> ::=  "" 
+            | <comment> <stmt> 
+            | <expStmt> <eol> <stmt> 
+            | <var> <expStmt> <eol> <stmt> 
+            | <ifStmt> <stmt> 
+            | <iterStmt> <stmt> 
+            | <returnStmt>
+<returnStmt> ::= "return" <var_stmt> <eol>
+<expStmt> ::= <tipo> <var> <eq> <var_stmt> | <op> <expr> | <callF>
+<var_stmt> ::= <var> | <expStmt> | "" | "text" | "digito"
+<ifStmt> ::= "if" "(" <aSimpleExp> ")"  "{" <stmt> "}" <els>
+<els> ::= "" | "else" "{" <stmt> "}"
+<iterStmt> ::=  "while" "(" <aSimpleExp> ")" "{" <stmt> "}"
+                | "do" "{" <stmt> "}" "while" "(" <aSimpleExp> ")" <eol>
+                | "for" "(" <aSimpleExp> ";" <aSimpleExp> ";" <aSimpleExp> ")" "{" <stmt> "}"
+<op> ::= "<" | "<=" | ">" | ">=" | "=" | "==" | "||" | "&&" | "+" | "-" | "*" | "/"
+<expr> ::= <var> <expr_tail> | "digito" | "text" | "TRUE" | "FALSE"
+<expr_tail> ::= <op> <expr> | ""
+<aSimpleExp> ::= "!" "(" <expr> ")" <expr_tail> | <aSimpleExp> | <expr>
+<simpleExp> ::= <tipo> <var> <op> <expr>
